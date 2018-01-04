@@ -27,17 +27,18 @@ async function search_baidu() {
         });
         // enable events then start!
         await Promise.all([Network.enable(), Page.enable()]);
-        await Page.navigate({url: 'http://v.youku.com/v_show/id_XMzE3MTIwMjI2MA==.html?spm=a2h0j.8191423.vpofficiallistv5_wrap.5~5~5~5!21~A'});
-        // await page.findElement(webdriver.By.id('kw')).sendKeys('chrome')
-        // await page.findElement(webdriver.By.id('su')).submit();
+        await Page.navigate({url:
+          'http://v.youku.com/v_show/id_XMzE4Nzk4OTUwOA==.html?spm=a2h0j.8191423.vpofficiallistv5_wrap.5~5~5~5!49~A'
+        });
         await Page.loadEventFired();
-        // await client.Runtime.evaluate({
-          // expression: `getElementsByXPath('//*[@id="ykPlayer"]/div[1]/div[2]/div[2]/div[2]/div[4]/div/div[4]').click();`
-        // });
+        // 切换清晰度
+        await client.Runtime.evaluate({
+          expression: `var xpath = '//*//div[@data-val="720p"]';
+          document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();`
+        });
+        // 获取source
         const result = await client.Runtime.evaluate({
-            expression: 'document.title'
-            // expression: 'document.cookie'
-            // expression: 'document.documentElement.outerHTML'
+            expression: 'window.H5player._manage._player.config.source'
         });
         const html = result.result.value;
         console.log(html);
