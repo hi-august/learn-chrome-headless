@@ -1,0 +1,8 @@
+*.pyc
+*.bak
+node_modules/*
+*.png
+*.jpg
+*.jpeg
+*.zip
+*.rar
